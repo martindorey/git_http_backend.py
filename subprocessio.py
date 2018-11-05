@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 '''
 Module provides a class allowing to wrap communication over subprocess.Popen
-input, output, error streams into a meaningfull, non-blocking, concurrent stream
+input, output, error streams into a meaningful, non-blocking, concurrent stream
 processor exposing the output data as an iterator fitting to be a return value
-passed by a WSGI applicaiton to a WSGI server per PEP 3333.
+passed by a WSGI application to a WSGI server per PEP 3333.
 
 Copyright (c) 2011  Daniel Dotsenko <dotsa@hotmail.com>
 
@@ -219,7 +219,7 @@ class BufferedGenerator():
     @property
     def done_reading_event(self):
         '''
-        Done_reding does not mean that the iterator's buffer is empty.
+        Done_reading does not mean that the iterator's buffer is empty.
         Iterator might have done reading from underlying source, but the read
         chunks might still be available for serving through .next() method.
 
@@ -229,11 +229,11 @@ class BufferedGenerator():
     @property
     def done_reading(self):
         '''
-        Done_reding does not mean that the iterator's buffer is empty.
+        Done_reading does not mean that the iterator's buffer is empty.
         Iterator might have done reading from underlying source, but the read
         chunks might still be available for serving through .next() method.
 
-        @return An Bool value.
+        @return A Bool value.
         '''
         return self.worker.EOF.is_set()
 
@@ -242,15 +242,15 @@ class BufferedGenerator():
         '''
         returns int.
 
-        This is the lenght of the que of chunks, not the length of
+        This is the length of the que of chunks, not the length of
         the combined contents in those chunks.
 
         __len__() cannot be meaningfully implemented because this
-        reader is just flying throuh a bottomless pit content and
-        can only know the lenght of what it already saw.
+        reader is just flying through a bottomless pit of content and
+        can only know the length of what it already saw.
 
         If __len__() on WSGI server per PEP 3333 returns a value,
-        the responce's length will be set to that. In order not to
+        the response's length will be set to that. In order not to
         confuse WSGI PEP3333 servers, we will not implement __len__
         at all.
         '''
@@ -285,11 +285,11 @@ class SubprocessIOChunker():
        does not block the parallel inpipe reading occurring parallel thread.)
 
     The purpose of the object is to allow us to wrap subprocess interactions into
-    and interable that can be passed to a WSGI server as the application's return
+    an iterable that can be passed to a WSGI server as the application's return
     value. Because of stream-processing-ability, WSGI does not have to read ALL
     of the subprocess's output and buffer it, before handing it to WSGI server for
     HTTP response. Instead, the class initializer reads just a bit of the stream
-    to figure out if error ocurred or likely to occur and if not, just hands the
+    to figure out if error occurred or likely to occur and if not, just hands the
     further iteration over subprocess output to the server for completion of HTTP
     response.
 
@@ -391,4 +391,3 @@ class SubprocessIOChunker():
 
     def __del__(self):
         self.close()
-
